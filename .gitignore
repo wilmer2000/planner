@@ -42,5 +42,6 @@ frontend/typings
 Thumbs.db
 
 .env
+backend/generated
 backend/generated/prisma
-*/generated
+**/generated
