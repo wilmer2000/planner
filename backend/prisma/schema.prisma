@@ -14,13 +14,47 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   email     String   @unique
   password  String
   name      String?
   lastname  String?
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   role      Role     @default(USER)
+}
+
+model Activity {
+  id        String   @id @default(uuid())
+  startDate DateTime
+  endDate   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  goal      String
+  volumen   String
+  trainings String[]
+}
+
+model Goal {
+  id   String @id @default(uuid())
+  name String
+}
+
+model Training {
+  id   String @id @default(uuid())
+  name String
+  goal String
+}
+
+model Exercise {
+  id    String @id @default(uuid())
+  name  String
+  types String
+}
+
+model ExerciseType {
+  id   String @id @default(uuid())
+  name String
 }
 
 enum Role {
