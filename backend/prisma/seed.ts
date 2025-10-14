@@ -1,10 +1,11 @@
-import {PrismaClient, Prisma} from '@prisma/client';
-import { withAccelerate } from '@prisma/extension-accelerate';
+import {PrismaClient} from '@prisma/client';
+import {withAccelerate} from '@prisma/extension-accelerate';
+import * as bcrypt from 'bcrypt';
 
 
 const prisma = new PrismaClient().$extends(withAccelerate());
 
-const userData: Prisma.UserCreateInput[] = [
+const userData: any[] = [
     {
         email: 'admin@admin.com',
         password: 'password',
@@ -22,8 +23,13 @@ async function main() {
     }
 
     for (const u of userData) {
-        const user = await prisma.user.create({ data: u });
-        console.log(`Created user ${user.name } with id: ${user.id}`);
+        const data = {
+            email: u.email,
+            role: u.role,
+            hashedPassword: await bcrypt.hash(u.password, 10)
+        }
+        const user = await prisma.user.create({data});
+        console.log(`Created user ${user.name} with id: ${user.id}`);
     }
     console.log(`Seeding finished.`);
 }

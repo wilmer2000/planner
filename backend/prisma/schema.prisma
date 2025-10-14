@@ -14,14 +14,14 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  name      String?
-  lastname  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  role      Role     @default(USER)
+  id             String   @unique @default(uuid())
+  email          String   @unique
+  hashedPassword String
+  name           String?
+  lastname       String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  role           Role     @default(USER)
 }
 
 model Activity {
