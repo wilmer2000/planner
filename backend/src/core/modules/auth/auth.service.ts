@@ -11,7 +11,7 @@ export class AuthService {
     constructor(private prisma: PrismaService, private jwt: JwtService) {
     }
 
-    async signup(dto: AuthDto) {
+    async signUp(dto: AuthDto) {
         const {email, password} = dto;
 
         const userExists = await this.prisma.user.findUnique({
@@ -34,7 +34,7 @@ export class AuthService {
         return {message: 'User created succefully'};
     }
 
-    async signin(dto: AuthDto, req: Request, res: Response) {
+    async signIn(dto: AuthDto, _: Request, res: Response) {
         const {email, password} = dto;
 
         const foundUser = await this.prisma.user.findUnique({
@@ -70,23 +70,23 @@ export class AuthService {
         return res.send({message: 'Logged in succefully'});
     }
 
-    async signout(req: Request, res: Response) {
+    async signOut(_: Request, res: Response) {
         res.clearCookie('token');
 
         return res.send({message: 'Logged out succefully'});
     }
 
-    async hashPassword(password: string) {
+    private async hashPassword(password: string) {
         const saltOrRounds = 10;
 
         return await bcrypt.hash(password, saltOrRounds);
     }
 
-    async comparePasswords(args: { hash: string; password: string }) {
+    private async comparePasswords(args: { hash: string; password: string }) {
         return await bcrypt.compare(args.password, args.hash);
     }
 
-    async signToken(args: { userId: string; email: string }) {
+    private async signToken(args: { userId: string; email: string }) {
         const payload = {
             id: args.userId,
             email: args.email,
