@@ -1,11 +1,8 @@
 {
   "/soap-api": {
-    "target": "https://pr.rtp.clk.com.uy",
+    "target": "http://localhost:3000/",
     "secure": true,
     "changeOrigin": true,
-    "logLevel": "debug",
-    "pathRewrite": {
-      "^/soap-api": "/api"
-    }
+    "logLevel": "debug"
   }
 }
