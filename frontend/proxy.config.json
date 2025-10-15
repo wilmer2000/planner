@@ -1,0 +1,11 @@
+{
+  "/soap-api": {
+    "target": "https://pr.rtp.clk.com.uy",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/soap-api": "/api"
+    }
+  }
+}

@@ -9,28 +9,36 @@
         "@schematics/angular:component": {
           "inlineTemplate": true,
           "inlineStyle": true,
-          "skipTests": true
+          "skipTests": true,
+          "type": "component"
         },
         "@schematics/angular:class": {
-          "skipTests": true
+          "skipTests": true,
+          "type": "class"
         },
         "@schematics/angular:directive": {
-          "skipTests": true
+          "skipTests": true,
+          "type": "directive"
         },
         "@schematics/angular:guard": {
-          "skipTests": true
+          "skipTests": true,
+          "typeSeparator": "."
         },
         "@schematics/angular:interceptor": {
-          "skipTests": true
+          "skipTests": true,
+          "typeSeparator": "."
         },
         "@schematics/angular:pipe": {
-          "skipTests": true
+          "skipTests": true,
+          "typeSeparator": "."
         },
         "@schematics/angular:resolver": {
-          "skipTests": true
+          "skipTests": true,
+          "typeSeparator": "."
         },
         "@schematics/angular:service": {
-          "skipTests": true
+          "skipTests": true,
+          "type": "service"
         }
       },
       "root": "",
@@ -41,18 +49,18 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
               }
             ],
-            "styles": [
-              "src/styles.css"
+            "styles": ["src/styles.css"],
+            "allowedCommonJsDependencies": [
+              "country-list-js"
             ]
           },
           "configurations": {
@@ -62,11 +70,6 @@
                   "type": "initial",
                   "maximumWarning": "500kB",
                   "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
                 }
               ],
               "outputHashing": "all"
@@ -81,6 +84,9 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "proxy.config.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "planner:build:production"
@@ -93,8 +99,20 @@
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+          }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": [
+      "angular-eslint"
+    ],
+    "analytics": "034be0b4-72c1-47b8-9dc7-82329766c2cf"
   }
 }

@@ -4,13 +4,14 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
-  template: `
-    <h1>Welcome to {{title}}!</h1>
-
-    <router-outlet />
-  `,
-  styles: [],
+  templateUrl: './app.html',
+  styles: [
+    `
+      :host {
+        display: block;
+        height: 100%;
+      }
+    `
+  ]
 })
-export class App {
-  protected title = 'planner';
-}
+export class App {}
